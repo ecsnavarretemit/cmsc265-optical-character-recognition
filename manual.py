@@ -25,24 +25,25 @@ def filter_contours(contour):
 
   return True
 
+# read the image
 image = os.path.join(os.getcwd(), "assets/img/manual.jpg")
-cv_image = cv2.imread(image, cv2.IMREAD_GRAYSCALE)
+cv_image = cv2.imread(image)
 
-output = cv_image.copy()
+# convert to grayscale
+gray_image = cv2.cvtColor(cv_image, cv2.COLOR_BGR2GRAY)
 
-# Blurring (Plain)
-processed = cv2.blur(cv_image, (5, 5))
-
-# thresholding
+# apply some smoothing and thresholding to convert to binary image (inverted)
+processed = cv2.blur(gray_image, (5, 5))
 _, thresh = cv2.threshold(processed, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
 
+# apply some morphological operation (dilation)
 kernel = cv2.getStructuringElement(cv2.MORPH_CROSS, (1, 1))
 transformed = cv2.dilate(thresh, kernel, iterations=13)
 
 # box out all possible characters present in the image
-recognize_characters(transformed, output, filter_fn=filter_contours)
+recognize_characters(transformed, cv_image, filter_fn=filter_contours)
 
-cv2.imshow('Output', output)
+cv2.imshow('Output', cv_image)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 

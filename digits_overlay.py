@@ -21,22 +21,24 @@ def filter_contours(contour):
 
   return True
 
+# read the image
 image = os.path.join(os.getcwd(), "assets/img/digits-overlay.jpg")
-cv_image = cv2.imread(image, cv2.IMREAD_GRAYSCALE)
+cv_image = cv2.imread(image)
 
-output = cv_image.copy()
+# convert to grayscale
+gray_image = cv2.cvtColor(cv_image, cv2.COLOR_BGR2GRAY)
 
-# threshold
-_, thresh = cv2.threshold(cv_image, 150, 255, cv2.THRESH_BINARY_INV)
+# apply some thresholding to convert to binary image (inverted)
+_, thresh = cv2.threshold(gray_image, 150, 255, cv2.THRESH_BINARY_INV)
 
-# dilate
+# apply some morphological operation (dilation)
 kernel = cv2.getStructuringElement(cv2.MORPH_CROSS, (3, 3))
 dilated = cv2.dilate(thresh, kernel, iterations=5)
 
 # box out all possible characters present in the image
-recognize_characters(dilated, output, filter_fn=filter_contours)
+recognize_characters(dilated, cv_image, filter_fn=filter_contours)
 
-cv2.imshow('Output', output)
+cv2.imshow('Output', cv_image)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 
