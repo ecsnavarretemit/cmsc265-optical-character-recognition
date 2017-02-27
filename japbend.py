@@ -11,6 +11,21 @@ import cv2
 import numpy as np
 from app import recognize_characters
 
+# function to filter out contours on an image
+def filter_contours(contour):
+  # get rectangle bounding contour
+  [_, _, w, h] = cv2.boundingRect(contour)
+
+  # remove any large contours present
+  if h > 300 and w > 300:
+    return False
+
+  # remove any small contours present
+  if h < 10 or w < 10:
+    return False
+
+  return True
+
 # read the image
 image = os.path.join(os.getcwd(), "assets/img/japbend.jpg")
 cv_image = cv2.imread(image)
@@ -32,7 +47,7 @@ kernel = cv2.getStructuringElement(cv2.MORPH_CROSS, (3, 3))
 dilated = cv2.dilate(thresh, kernel, iterations=1)
 
 # box out all possible characters present in the image
-recognize_characters(dilated, cv_image)
+recognize_characters(dilated, cv_image, filter_fn=filter_contours)
 
 cv2.imshow('Output', cv_image)
 cv2.waitKey(0)
