@@ -19,10 +19,6 @@ def filter_contours(contour):
   if h > 150 or w > 150:
     return False
 
-  # remove any small contours present
-  if h < 10 or w < 10:
-    return False
-
   return True
 
 # read the image
