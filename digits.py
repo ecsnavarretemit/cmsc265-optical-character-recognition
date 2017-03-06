@@ -41,7 +41,7 @@ kernel = cv2.getStructuringElement(cv2.MORPH_CROSS, (3, 3))
 dilated = cv2.dilate(thresh, kernel, iterations=13)
 
 # box out all possible characters present in the image
-recognize_characters(dilated, cv_image, filter_fn=filter_contours)
+recognize_characters(dilated, cv_image, random_shape_color=True, filter_fn=filter_contours)
 
 cv2.imshow('Output', cv2.pyrDown(cv2.pyrDown(cv_image)))
 cv2.waitKey(0)
