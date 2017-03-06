@@ -22,6 +22,8 @@ def recognize_characters(src, dst, **kwargs):
   # set default color
   new_shape_color = shape_color
 
+  counter = 0
+
   # for each contour found, draw a rectangle around it on original image
   for contour in contours:
     # get rectangle bounding contour
@@ -37,5 +39,10 @@ def recognize_characters(src, dst, **kwargs):
 
     # draw rectangle around contour on original image
     cv2.rectangle(dst, (x, y), (x + w, y + h), new_shape_color, shape_thickness)
+
+    # increment the value so that we can count how many contours are detected
+    counter += 1
+
+  return counter
 
 

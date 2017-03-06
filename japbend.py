@@ -47,7 +47,9 @@ kernel = cv2.getStructuringElement(cv2.MORPH_CROSS, (3, 3))
 dilated = cv2.dilate(thresh, kernel, iterations=1)
 
 # box out all possible characters present in the image
-recognize_characters(dilated, cv_image, random_shape_color=True, filter_fn=filter_contours)
+num_characters = recognize_characters(dilated, cv_image, random_shape_color=True, filter_fn=filter_contours)
+
+print(f"Number of Boxes/Connected Components: {num_characters}")
 
 cv2.imshow('Output', cv_image)
 cv2.waitKey(0)
