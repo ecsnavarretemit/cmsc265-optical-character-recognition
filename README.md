@@ -1,4 +1,4 @@
-# CMSC 265 Exercise 4 and 5 - Optical Character Recognition
+# CMSC 265 Exercise 4 - Optical Character Recognition I
 
 ## Requirements
 
