@@ -1,4 +1,4 @@
-# CMSC 265 Exercise 4 and 5 - Optical Character Recognition
+# CMSC 265 Exercise 4 - Optical Character Recognition I
 
 ## Requirements
 
@@ -32,7 +32,7 @@ Follow these steps to install the setup the application:
 
 ## Running the Program
 
-This program can be run using the command `./run.py`.
+You can run the python scripts by invoking `python <program>.py` or `./<program>.py`
 
 ## License
 
